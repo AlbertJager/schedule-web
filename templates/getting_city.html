@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода | Альберт Саркисян</title>
+    <style>
+        /* Все стили остаются ТАКИМИ ЖЕ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f9f0 0%, #e6f4e6 50%, #f8faf8 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #1a3c1a;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 150, 0, 0.1);
+            border: 1px solid rgba(0, 200, 0, 0.2);
+        }
+        
+        .logo {
+            font-size: 2.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2d5a2d;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            color: #1a3c1a;
+            font-weight: 500;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #2d5a2d;
+            font-weight: 500;
+        }
+        
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            border-radius: 12px;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            color: #1a3c1a;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+            background: white;
+        }
+        
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            color: #4a7c4a;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            cursor: pointer;
+            margin-bottom: 25px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .example {
+            font-size: 0.9em;
+            color: #4a7c4a;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .back-link {
+            margin-top: 25px;
+            padding-top: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            .logo {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🌤️ Погода в вашем городе</div>
+         
+        <!-- ✅ ИЗМЕНЕНИЕ: Добавлен action="/getweather" method="POST" -->
+        <form id="weatherForm" action="/get_weather" method="POST">
+            <div class="form-group">
+                <label for="city" class="form-label">Введите название города</label>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="city" 
+                        name="city"  
+                        placeholder="Ваш город"
+                        required
+                    >
+                    <span class="input-icon">🌍</span>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">☀️ Получить погоду</button>
+        </form>
+        
+        <a href="/" class="back-link">← На главную</a>
+    </div>
+
+    <!-- ✅ JavaScript удален, форма теперь работает стандартно -->
+</body>
+</html>
