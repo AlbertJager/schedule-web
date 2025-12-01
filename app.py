@@ -18,7 +18,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/getting_group/')
+@app.route('/getting_group', strict_slashes=False)
 def getting_group():
     return render_template("getting_group.html")
 
