@@ -109,6 +109,6 @@ def get_weather_from_api():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html')
-#run
+#run app
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
