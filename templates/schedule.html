@@ -1,11 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Расписание | {{ group }}</title>
+    <style>
+        /* Все ваши стили остаются ТАКИМИ ЖЕ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            color: #2d5016; line-height: 1.6;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        h4 { 
+            font-size: 1.9em; font-weight: 700; color: #1a3c12; 
+            margin: 35px 0 12px 0; border-bottom: 4px solid #4CAF50; 
+            padding-bottom: 12px; max-width: fit-content; letter-spacing: 0.5px;
+        }
+        h5 { 
+            font-size: 1.25em; color: #4a7c59; font-weight: 600; 
+            margin-bottom: 28px; text-transform: uppercase; letter-spacing: 1.2px;
+        }
+        table { 
+            width: 100%; border-collapse: collapse; background: #ffffff; 
+            border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(76,175,80,0.15);
+            margin-bottom: 45px; border: 1px solid rgba(76,175,80,0.2);
+        }
+        .time {
+            width: 135px; padding: 22px 16px; text-align: center;
+            color: #9e9e9e; font-size: 1.05em; font-weight: 500; line-height: 1.3;
+            background: linear-gradient(135deg, #f8faf8, #f0f7f0);
+        }
+        .time br { display: block; margin: 8px 0; }
+        .lection { width: 42px; padding: 22px 12px; vertical-align: top; }
+        .lection.yes { 
+            background: linear-gradient(135deg, #ffca28, #ffb300); 
+            box-shadow: inset 0 2px 4px rgba(255,193,7,0.3);
+        }
+        .diss {
+            padding: 22px 32px; vertical-align: top; font-size: 1.12em; 
+            max-width: 520px; line-height: 1.48;
+        }
+        .diss strong { 
+            color: #1b5e20; font-weight: 700; font-size: 1.18em; 
+            display: block; margin-bottom: 6px;
+        }
+        .diss-info {
+            display: block; color: #5d7a5a; font-size: 1.02em; margin-top: 8px;
+            font-weight: 500;
+        }
+        .who-where {
+            width: 155px; padding: 22px 16px; text-align: center;
+        }
+        .room-link {
+            display: inline-block; background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: #ffffff; padding: 14px 26px; border-radius: 28px; text-decoration: none;
+            font-weight: 600; font-size: 1.02em; white-space: nowrap; transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(76,175,80,0.3); position: relative; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .room-link::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+        .room-link:hover::before { left: 100%; }
+        .room-link:hover {
+            background: linear-gradient(135deg, #45a049, #388e3c); transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(76,175,80,0.45);
+        }
+        tr { transition: all 0.25s ease; border-bottom: 1px solid rgba(76,175,80,0.08); }
+        tr:last-child { border-bottom: none; }
+        tr:nth-child(even) { background: rgba(240,247,240,0.6); }
+
+        .nav-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 40px;
+            padding: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 15px 20px;
+            width: 300px;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(135deg, #45a049, #3d8b40);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            cursor: pointer;
+        }
+
+        /* .nav-btn:active {
+            transform: translateY(0);
+        } */
+
+        @media (max-width: 768px) {
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            .nav-btn {
+                padding: 12px 24px;
+                min-width: 240px;
+                font-size: 0.95em;
+            }
+        }
+    </style>
 </head>
 <body>
-    {{type_of_schedule}}
+    <div class="container">
+        {%if type == 'week1' or type == 'week2'%}
+            {% for list in res %}
+                {% if list[2] != 'Нет занятий' %}
+                    <h4>{{list[0]}}</h4>
+                    <h5>{{list[1]}}</h5>
+                    
+                    <table>
+                    {% set lessons_slice = list[2:] %}
+                    {% for i in range(0, lessons_slice|length, 7) %}
+                        <tr>
+                            <td class="time">
+                                {{lessons_slice[i]}}<br>{{lessons_slice[i + 1]}}
+                            </td>
+                            <td class="lection {% if lessons_slice[i + 4] == 'Лекция' %}yes{% endif %}"></td>
+                            <td class="diss">
+                                {{lessons_slice[i + 3]}}
+                                <span class="diss-info">{{lessons_slice[i + 2]}}</span>
+                            </td>
+                            <td class="who-where">
+                                <span>{{lessons_slice[i + 5]}}</span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif %}
+            {% endfor %}
+        {%elif type == 'today' or type == 'tomorrow'%}
+            {% set lessons = res %}
+                <h4>{{lessons[0]}}</h4>
+                <h5>{{lessons[1]}}</h5>
+                {% if lessons[2] != 'Нет занятий' %}
+                    {% set lessons_slice = res[2:] %}
+                    {% for i in range(0, lessons_slice|length, 7)%}
+                        <table> 
+                            <tr>
+                                <td class="time">
+                                    {{lessons_slice[i]}}<br>{{lessons_slice[i+1]}}
+                                </td>
+                                <td class="lection {% if lessons_slice[i+4] == 'Лекция' %}yes{% endif %}"></td>
+                                <td class="diss">
+                                    {{lessons_slice[i+3]}}
+                                    <span class="diss-info">{{lessons_slice[i+2]}}</span>
+                                </td>
+                                <td class="who-where">
+                                    <span>{{lessons_slice[i+5]}}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    {% endfor %}
+                {% else %}
+                    <p>Нет занятий</p>
+                {%endif%}
+        {%endif%}
+
+            <!-- В конце шаблона вместо <a href="/getting_type_of_schedule"> -->
+        <!-- В конце .container -->
+        <div class="nav-buttons">
+            <a href="/" class="nav-btn">Главная</a>
+            <form action="/getting_type_of_schedule" method="POST" style="display: contents;">
+                <input type="hidden" name="group" value="{{ group }}">
+                <button type="submit" class="nav-btn">Выбор расписания</button>
+            </form>
+        </div>
+
+    </div>
 </body>
 </html>

@@ -125,7 +125,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">📚 Выберите расписание</div>
+        <div class="logo">Выберите расписание</div>
         
         
         <!-- ✅ Группа передается из /getschedule -->
@@ -133,24 +133,53 @@
             <div class="group-name" id="groupName">{{group}}</div>
         </div>
         
-        <form id="scheduleSelectForm" style="display: contents;" action="/schedule" method="POST">
+        <form id="scheduleSelectForm" style="display: contents;" action="/schedule/{{group}}/" method="POST">
             <div class="schedule-buttons">
-                <button type="submit" name="type_of_schedule" value="today" class="btn">
-                     На сегодня
-                </button>
-                <button type="submit" name="type_of_schedule" value="tomorrow" class="btn">
-                     На завтра
-                </button>
-                <button type="submit" name="type_of_schedule" value="week1" class="btn">
-                     На первую неделю
-                </button>
-                <button type="submit" name="type_of_schedule" value="week2" class="btn">
-                     На вторую неделю
-                </button>
+            <button type="button" name="type_of_schedule" value="today" class="btn">
+                На сегодня
+            </button>
+            <button type="button" name="type_of_schedule" value="tomorrow" class="btn">
+                На завтра
+            </button>
+            <button type="button" name="type_of_schedule" value="week1" class="btn">
+                На первую неделю
+            </button>
+            <button type="button" name="type_of_schedule" value="week2" class="btn">
+                На вторую неделю
+            </button>
             </div>
         </form>
-        
+
+
         <a href="/" class="back-link">← На главную</a>
+        <script>
+            function setAction(typeValue, event) {
+                event.preventDefault(); // останавливаем отправку
+                
+                const form = document.getElementById('scheduleSelectForm');
+                const group = form.dataset.group || '{{group}}'; // из data-group или шаблона
+                form.action = `/schedule/${group}/${typeValue}`;
+                
+                // устанавливаем value для POST-данных
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'type_of_schedule';
+                input.value = typeValue;
+                form.appendChild(input);
+                
+                form.submit(); // отправляем вручную
+            }
+
+            // привязываем обработчики динамически
+            document.addEventListener('DOMContentLoaded', function() {
+                const buttons = document.querySelectorAll('#scheduleSelectForm .schedule-buttons button');
+                buttons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        setAction(this.value, e);
+                    });
+                });
+            });
+        </script>
     </div>
 </body>
 </html>

@@ -70,7 +70,7 @@ def get_schedule(group: str):
         days = page.find_all('div', class_=re.compile(r'card-block.*day-\d{4}-\d{2}-\d{2}'))[3:]
         
         for i in range(len(days)):
-            res = ''
+            res = []
             
             #начиная с 7 индекса идет вторая неделя
             if i < 7:
@@ -85,26 +85,32 @@ def get_schedule(group: str):
             day = days[i]
             
             day_of_the_week, date, month  = [el for el in day.find('h4').text.split() if el != '|']  #Конкретный день
-                
+
+            if int(date) < 10:
+                key_date = f'{CURRENT_YEAR}-{months[month]}-{"0" + date}'
+            else:
+                key_date = f'{CURRENT_YEAR}-{months[month]}-{date}'
+            
             table_body = day.find('tbody')  #тело расписания(таблица)
             
-            for_print = f'{group} | {day_of_the_week} | {date} {month} | {num_of_week}'
+            for_print = f'{day_of_the_week} | {date} {month}'
 
             # frame_width = 57 if 57 % len(for_print) == 0 else 58  # выбираем ширину рамки
 
-            key_date = f'{CURRENT_YEAR}-{months[month]}-{date}'
+            
             
             
             # res+=('-' * frame_width+'\n')
             # res+=('|' + for_print.center(frame_width - 2) + '|'+'\n')
             # res+=('-' * frame_width + '\n')
-            res += for_print+'\n\n'
+            res.append(for_print)
+            res.append(num_of_week)
 
             all_rows_of_table = table_body.find_all('tr')  #все строки с занятиями конкретного дня
             
             #Если у конкретного дня нет занятий, то переходим к следующему дню!!!!
             if checking_the_amount_of_disciplines(all_rows_of_table) == 0:
-                res+=('Нет занятий\n')
+                res.append('Нет занятий')
                 # добавление пустого дня
                 main_dict[key_week][key_date] = res
                 continue
@@ -124,7 +130,7 @@ def get_schedule(group: str):
                             for i in range(1, len(teacher_list)):
                                 word = teacher_list[i]
                                 if word.startswith(f'{group}'):
-                                    teacher += '| ' + word + ' '                    
+                                    teacher += 'и ' + word + ' '                    
                                 else:
                                     teacher += word+' ' 
                         else:
@@ -138,10 +144,12 @@ def get_schedule(group: str):
                             discipline = ' '.join(discipline_list[:5])
                             teacher = ' '.join(teacher_list[:3]) + ' и многие другие'
             
+                        
+                        
                         time_start, time_end = row.find('td', class_='time').text.split()  # Начало и конец пары
+
                         type_of_discipline = 'Практика' if row.find('td', class_='lection yes') == None else 'Лекция'  # Тип дисциплины
-                            
-                        res+=(f'{time_start}| Дисциплина: {discipline}({type_of_discipline})\n{time_end}| Преподаватель: {teacher}\n')
+                        
                         
                         online_diss = row.find('td', class_='diss').find('a', class_='webex')
                             
@@ -149,13 +157,21 @@ def get_schedule(group: str):
                         # проверка на наличие онлайн занятия, если оно есть, то в аудиторию записывается ссылка на занятие
                         if online_diss == None:
                             final = row.find('td', class_="who-where").text.strip()
-                            res+=(f'Аудитория: {final}\n\n')
+                            
                         else:
                             final = online_diss['href']  # аудитория
-                            res+=(f'Ссылка на занятие: {final}\n\n')    
-                                    
+                                
+                        
+                        # main_dict[key_week][key_date]["audience"] = final  # аудитория           
             # res+=('-'*57)
-            
-            main_dict[key_week][key_date] = res    
+                    res.append(time_start)
+                    res.append(time_end)
+                    res.append(teacher)
+                    res.append(discipline)
+                    res.append(type_of_discipline)
+                    res.append(final)
+                    res.append("конец")
+
+            main_dict[key_week][key_date] = res  # список вида [день, тип недели, начало пары, конец пары, препод, дисциплина, тип дисциплины, аудитория или ссылка]    
         
         return(main_dict)

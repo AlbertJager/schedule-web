@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Альберт Саркисян | Для любимого КубГАУ</title>
+    <title>404 | Страница не найдена | Альберт Саркисян</title>
     <style>
         * {
             margin: 0;
@@ -26,7 +26,7 @@
         .container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
-            padding: 40px;
+            padding: 60px 40px;
             max-width: 600px;
             width: 100%;
             text-align: center;
@@ -37,75 +37,72 @@
         .logo {
             font-size: 2.5em;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             color: #2d5a2d;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
         }
         
-        .subtitle {
-            font-size: 1.3em;
+        .error-code {
+            font-size: 6em;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            font-family: 'Courier New', monospace;
+        }
+        
+        .error-message {
+            font-size: 1.4em;
             margin-bottom: 30px;
-            color: #1a3c1a;
-            font-weight: 500;
+            color: #2d5a2d;
+            line-height: 1.5;
         }
         
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .btn {
-            display: block;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 24px;
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
             text-decoration: none;
-            border-radius: 12px;
-            font-size: 1.1em;
             font-weight: 500;
+            border-radius: 25px;
+            border: 2px solid rgba(76, 175, 80, 0.3);
             transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
         
-        .btn:hover {
-            background: linear-gradient(135deg, #45a049, #3d8b40);
+        .back-link:hover {
+            background: rgba(76, 175, 80, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-        }
-        
-        .university {
-            margin-top: 30px;
-            font-size: 0.95em;
-            color: #4a7c4a;
-            font-style: italic;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
         }
         
         @media (max-width: 480px) {
             .container {
-                padding: 30px 20px;
+                padding: 40px 20px;
                 margin: 10px;
             }
             .logo {
                 font-size: 2em;
+            }
+            .error-code {
+                font-size: 4em;
+            }
+            .error-message {
+                font-size: 1.2em;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="logo">От Альберта Саркисяна</div>
-        <div class="subtitle">Сайт для любимого КубГАУ💚</div>
-        
-        <div class="links">
-            <a href="/getting_group" class="btn">Открыть расписание</a>
-            <a href="/getting_city" class="btn">Открыть погоду</a>
+        <div class="logo">Страница не найдена</div>
+        <div class="error-code">404</div>
+        <div class="error-message">
+            Запрашиваемая страница не существует.<br>
+            Проверьте правильность введенного адреса.
         </div>
-        
-        <div class="university">
-            Кубанский государственный аграрный университет
-        </div>
+        <a href="/" class="back-link">← Вернуться на главную</a>
     </div>
 </body>
 </html>
