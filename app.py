@@ -18,7 +18,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/getting_group', strict_slashes=False)
+@app.route('/getting_group/')
 def getting_group():
     return render_template("getting_group.html")
 
@@ -95,7 +95,7 @@ def get_tingcity():
 
 @app.post('/get_weather')
 def get_weather_from_api():
-    city = request.form.to_dict().get("city").capitalize()
+    city = request.form.to_dict().get("city").strip().capitalize()
     
     response = get_weather(city, API_WEATHER_TOKEN)
     status_code = response[0]
