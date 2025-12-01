@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from schedule_parser import get_schedule
-from weather_api import get_weather
+# from weather_api import get_weather
 import datetime
 from dotenv import load_dotenv
 import os
@@ -88,23 +88,23 @@ def schedule(group, type_of_schedule):
 
 
 
-@app.route('/getting_city')
-def get_tingcity():
-    return render_template("getting_city.html")
+# @app.route('/getting_city')
+# def get_tingcity():
+#     return render_template("getting_city.html")
 
 
-@app.post('/get_weather')
-def get_weather_from_api():
-    city = request.form.to_dict().get("city").capitalize()
+# @app.post('/get_weather')
+# def get_weather_from_api():
+#     city = request.form.to_dict().get("city").capitalize()
     
-    response = get_weather(city, API_WEATHER_TOKEN)
-    status_code = response[0]
-    weather_result = response[-1]
+#     response = get_weather(city, API_WEATHER_TOKEN)
+#     status_code = response[0]
+#     weather_result = response[-1]
     
-    if status_code == 200:
-        return render_template("weather.html", city=city, weather_result=weather_result)
-    else:
-        return render_template("wrong_city.html")
+#     if status_code == 200:
+#         return render_template("weather.html", city=city, weather_result=weather_result)
+#     else:
+#         return render_template("wrong_city.html")
 
 @app.errorhandler(404)
 def page_not_found(e):
