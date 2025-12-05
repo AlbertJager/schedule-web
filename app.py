@@ -76,18 +76,6 @@ def schedule(group, type_of_schedule):
     return render_template("schedule.html", res=res, type=type_of_schedule, group=group)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 @app.route('/getting_city')
 def get_tingcity():
     return render_template("getting_city.html")
@@ -105,6 +93,19 @@ def get_weather_from_api():
         return render_template("weather.html", city=city, weather_result=weather_result)
     else:
         return render_template("wrong_city.html")
+
+
+@app.route("/signin", methods=["POST"])
+def sign_in():
+    login, password = request.form["login"], request.form["password"]
+    return f"{login}, {password}"
+
+
+@app.route("/register", methods=["POST"])
+def register():
+    login, email, password = request.form["login"], request.form["email"], request.form["password"] 
+    return f"{login}, {email}, {password}"
+
 
 @app.errorhandler(404)
 def page_not_found(e):

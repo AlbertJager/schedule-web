@@ -23,6 +23,12 @@
             padding: 20px;
         }
         
+        .header {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        
         .container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
@@ -32,6 +38,7 @@
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 150, 0, 0.1);
             border: 1px solid rgba(0, 200, 0, 0.2);
+            position: relative;
         }
         
         .logo {
@@ -67,12 +74,121 @@
             transition: all 0.3s ease;
             border: none;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            cursor: pointer;
         }
         
         .btn:hover {
             background: linear-gradient(135deg, #45a049, #3d8b40);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .login-btn {
+            padding: 12px 25px;
+            font-size: 1em;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 150, 0, 0.2);
+            border: 1px solid rgba(0, 200, 0, 0.3);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #4a7c4a;
+        }
+        
+        .close:hover {
+            color: #2d5a2d;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            color: #2d5a2d;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+        
+        .register-link {
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: #4a7c4a;
+        }
+        
+        .register-btn {
+            background: none;
+            border: none;
+            color: #4CAF50;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            text-decoration: underline;
+            padding: 0;
+        }
+        
+        .register-btn:hover {
+            color: #45a049;
         }
         
         .university {
@@ -90,10 +206,23 @@
             .logo {
                 font-size: 2em;
             }
+            .header {
+                top: 15px;
+                right: 15px;
+            }
+        }
+        
+        .subbtn {
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <button class="btn login-btn" onclick="openModal()">Войти</button>
+    </div>
+    
     <div class="container">
         <div class="logo">От Альберта Саркисяна</div>
         <div class="subtitle">Сайт для любимого КубГАУ💚</div>
@@ -107,5 +236,85 @@
             Кубанский государственный аграрный университет
         </div>
     </div>
+
+    <!-- Модальное окно -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Добро пожаловать!</h2>
+            
+            <!-- Форма входа (активная по умолчанию) -->
+            <div id="login-tab" class="tab-content active">
+                <form action="/signin" method="post">
+                    <div class="form-group">
+                        <label>Логин или email</label>
+                        <input name="login" type="text" placeholder="Введите логин или email" required>  <!--TODO-->  
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input name="password" type="password" placeholder="Введите пароль" required>
+                    </div>
+                    <div class="subbtn">
+                        <button type="submit" class="btn">Войти</button>
+                    </div>
+                    <div class="register-link">
+                        Нет аккаунта? <button type="button" class="register-btn" onclick="switchTab('register')">Зарегистрироваться</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Форма регистрации -->
+            <div id="register-tab" class="tab-content">
+                <form action="/register" method="post">  
+                    <div class="form-group">
+                        <label>Логин</label>
+                        <input name="login" type="text" placeholder="Придумайте логин" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input name="email" type="email" placeholder="example@mail.ru" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input name="password" type="password" placeholder="Придумайте пароль" required>
+                    </div>
+                    <div class="subbtn">
+                        <button type="submit" class="btn">Зарегистрироваться</button>
+                    </div>
+                    <div class="register-link">
+                        Уже есть аккаунт? <button type="button" class="register-btn" onclick="switchTab('login')">Войти</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        
+        function switchTab(tabName) {
+            // Скрыть все табы
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Показать выбранный таб
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+        
+        // Закрытие модалки по клику вне неё
+        window.onclick = function(event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
