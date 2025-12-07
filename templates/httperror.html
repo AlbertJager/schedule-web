@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 | Страница не найдена | Альберт Саркисян</title>
+    <title>Ошибка</title>
     <style>
         * {
             margin: 0;
@@ -96,11 +96,9 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">Страница не найдена</div>
-        <div class="error-code">404</div>
+        <div class="error-code">{{error}}</div>
         <div class="error-message">
-            Запрашиваемая страница не существует.<br>
-            Проверьте правильность введенного адреса.
+            {{description}}
         </div>
         <a href="/" class="back-link">← Вернуться на главную</a>
     </div>
