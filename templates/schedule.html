@@ -29,7 +29,7 @@
         }
         .time {
             width: 135px; padding: 22px 16px; text-align: center;
-            color: #9e9e9e; font-size: 1.05em; font-weight: 500; line-height: 1.3;
+            color: #1a3c12; font-size: 1.05em; font-weight: 500; line-height: 1.3;
             background: linear-gradient(135deg, #f8faf8, #f0f7f0);
         }
         .time br { display: block; margin: 8px 0; }
@@ -51,7 +51,10 @@
             font-weight: 500;
         }
         .who-where {
-            width: 155px; padding: 22px 16px; text-align: center;
+            width: 155px; 
+            padding: 22px 16px; 
+            text-align: center;
+            font-weight: bold;
         }
         .room-link {
             display: inline-block; background: linear-gradient(135deg, #4CAF50, #45a049);
@@ -186,8 +189,8 @@
             <!-- В конце шаблона вместо <a href="/getting_type_of_schedule"> -->
         <!-- В конце .container -->
         <div class="nav-buttons">
-            <a href="/" class="nav-btn">Главная</a>
-            <form action="/getting_type_of_schedule" method="POST" style="display: contents;">
+            <a href="{{url_for('index')}}" class="nav-btn">Главная</a>
+            <form action="{{url_for('getting_type_of_schedule')}}" method="POST" style="display: contents;">
                 <input type="hidden" name="group" value="{{ group }}">
                 <button type="submit" class="nav-btn">Выбор расписания</button>
             </form>

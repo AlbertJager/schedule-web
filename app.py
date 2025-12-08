@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, get_flashed_messages, url_for, redirect, jsonify, session
 from werkzeug.exceptions import HTTPException
 from schedule_parser import get_schedule
 from weather_api import get_weather
@@ -11,11 +11,13 @@ load_dotenv()
 API_WEATHER_TOKEN = os.getenv('API_WEATHER_TOKEN')
 
 app = Flask(__name__)
-
+app.secret_key = 'asad;alskdjaqegqwu@!"?>>>><eh128e9yeqfuhbcscczxc'
+# app.config['SESSION_PERMANENT'] = False
 
 #апишки ниже
 @app.route('/')
 def index():
+    print(session.get("username", "Гость"))
     return render_template("index.html")
 
 
@@ -43,7 +45,7 @@ def schedule(group, type_of_schedule):
     
     schedule = get_schedule(group)
     if schedule == None:
-        return render_template("404.html")
+        return render_template('httperror.html', error="Упс...", description="К сожалению, введенные данные содержат ошибки."), 404
     res = ""
     if type_of_schedule == 'today':
         today = datetime.date.today().__str__()
@@ -72,13 +74,13 @@ def schedule(group, type_of_schedule):
         res = schedule[week].values()  # тут список со списками(днями)
     
     else:
-        return render_template("404.html")
+        return render_template('httperror.html', error="Упс...", description="Такой тип расписания недоступен, выберите из списка."), 404
     
     return render_template("schedule.html", res=res, type=type_of_schedule, group=group)
 
 
 @app.route('/getting_city')
-def get_tingcity():
+def getting_city():
     return render_template("getting_city.html")
 
 
@@ -96,21 +98,39 @@ def get_weather_from_api():
         return render_template("wrong_city.html")
 
 
-@app.route("/signin", methods=["POST"])
+@app.route("/sign_out", methods=["POST"])
+def sign_out():
+    session["authorized"] = False
+    flash('Вы вышли из системы', 'logout')
+    return redirect(url_for('index'))
+
+
+@app.route("/sign_in", methods=["POST"])
 def sign_in():
-    login, password = request.form["login"], request.form["password"]
-    return f"{login}, {password}"
+    login = request.form["login"]
+    password = request.form["password"]
 
+    if len(login) <= 2:
+        return jsonify({'success': False, 'error': 'Логин должен быть не менее 3 символов'})
+    else:
+        # session['user'] = login
+        session["authorized"] = True
+        session["username"] = login
+        session["password"] = password
 
-@app.route("/register", methods=["POST"])
-def register():
+        return jsonify({'success': True, 'username': session["username"]})
+
+    
+
+@app.route("/sign_up", methods=["POST"])
+def sign_up():
     login, email, password = request.form["login"], request.form["email"], request.form["password"] 
     return f"{login}, {email}, {password}"
 
 
 @app.errorhandler(HTTPException)
-def page_not_found(error):
-    return render_template('httperror.html', error=error.code, description=error.description)
+def error_handler(error):
+    return render_template('httperror.html', error=error.code, description=error.description), error.code
 #run app
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

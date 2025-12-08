@@ -93,9 +93,9 @@
         <div class="weather-result">
             {{ weather_result }}
         </div>
-        <a href="/getting_city" class="btn">Другой город</a>
+        <a href="{{url_for('getting_city')}}" class="btn">Другой город</a>
         
-        <a href="/" class="back-link">← На главную</a>
+        <a href="{{url_for('index')}}" class="back-link">← На главную</a>
     </div>
 </body>
 </html>

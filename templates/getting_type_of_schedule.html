@@ -133,7 +133,7 @@
             <div class="group-name" id="groupName">{{group}}</div>
         </div>
         
-        <form id="scheduleSelectForm" style="display: contents;" action="/schedule/{{group}}/" method="POST">
+        <form id="scheduleSelectForm" style="display: contents;" action="{{url_for('schedule', group=group, type_of_schedule=type_of_schedule)}}" method="POST">
             <div class="schedule-buttons">
             <button type="button" name="type_of_schedule" value="today" class="btn">
                 На сегодня

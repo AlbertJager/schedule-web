@@ -150,7 +150,7 @@
         <div class="logo">Расписание занятий</div>
         
         <!-- ✅ ИЗМЕНЕНИЕ: Добавлен action="/getschedule" method="POST" -->
-        <form id="scheduleForm" action="/getting_type_of_schedule" method="POST">
+        <form id="scheduleForm" action="{{url_for('getting_type_of_schedule')}}" method="POST">
             <div class="form-group">
                 <label for="group" class="form-label">Введите группу</label>
                 <div class="input-group">

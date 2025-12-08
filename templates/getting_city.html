@@ -150,7 +150,7 @@
         <div class="logo">🌤️ Погода в вашем городе</div>
          
         <!-- ✅ ИЗМЕНЕНИЕ: Добавлен action="/getweather" method="POST" -->
-        <form id="weatherForm" action="/get_weather" method="POST">
+        <form id="weatherForm" action="{{url_for('get_weather_from_api')}}" method="POST">
             <div class="form-group">
                 <label for="city" class="form-label">Введите название города</label>
                 <div class="input-group">
