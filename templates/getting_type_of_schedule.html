@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f0f9f0 0%, #e6f4e6 50%, #f8faf8 100%);
@@ -22,7 +23,7 @@
             color: #1a3c1a;
             padding: 20px;
         }
-        
+
         .container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
@@ -33,42 +34,42 @@
             box-shadow: 0 10px 30px rgba(0, 150, 0, 0.1);
             border: 1px solid rgba(0, 200, 0, 0.2);
         }
-        
+
         .logo {
             font-size: 2.5em;
             font-weight: bold;
             margin-bottom: 10px;
             color: #2d5a2d;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
         }
-        
+
         .subtitle {
             font-size: 1.3em;
             margin-bottom: 20px;
             color: #1a3c1a;
             font-weight: 500;
         }
-        
+
         .group-info {
             background: rgba(76, 175, 80, 0.1);
             border-radius: 12px;
             padding: 15px;
             margin-bottom: 30px;
         }
-        
+
         .group-name {
             font-size: 1.2em;
             font-weight: 600;
             color: #2d5a2d;
         }
-        
+
         .schedule-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-bottom: 30px;
         }
-        
+
         .btn {
             padding: 15px 20px;
             background: linear-gradient(135deg, #4CAF50, #45a049);
@@ -86,67 +87,71 @@
             justify-content: center;
             gap: 10px;
         }
-        
+
         .btn:hover {
             background: linear-gradient(135deg, #45a049, #3d8b40);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
-        
+
         .btn-full {
             grid-column: 1 / -1;
             width: 100%;
         }
-        
+
         .back-link {
             margin-top: 40px;
             color: #4CAF50;
             text-decoration: none;
             font-weight: 500;
         }
-        
+
         .back-link:hover {
             text-decoration: underline;
         }
-        
+
         @media (max-width: 480px) {
             .container {
                 padding: 30px 20px;
                 margin: 10px;
             }
+
             .logo {
                 font-size: 2em;
             }
+
             .schedule-buttons {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="logo">Выберите расписание</div>
-        
-        
+
+
         <!-- ✅ Группа передается из /getschedule -->
         <div class="group-info">
             <div class="group-name" id="groupName">{{group}}</div>
         </div>
-        
-        <form id="scheduleSelectForm" style="display: contents;" action="{{url_for('schedule', group=group, type_of_schedule=type_of_schedule)}}" method="POST">
+
+        <form id="scheduleSelectForm" style="display: contents;"
+            action="{{url_for('schedule', group=group, type_of_schedule=type_of_schedule)}}" method="POST">
             <div class="schedule-buttons">
-            <button type="button" name="type_of_schedule" value="today" class="btn">
-                На сегодня
-            </button>
-            <button type="button" name="type_of_schedule" value="tomorrow" class="btn">
-                На завтра
-            </button>
-            <button type="button" name="type_of_schedule" value="week1" class="btn">
-                На первую неделю
-            </button>
-            <button type="button" name="type_of_schedule" value="week2" class="btn">
-                На вторую неделю
-            </button>
+                <button type="button" name="type_of_schedule" value="today" class="btn">
+                    На сегодня
+                </button>
+                <button type="button" name="type_of_schedule" value="tomorrow" class="btn">
+                    На завтра
+                </button>
+                <button type="button" name="type_of_schedule" value="week1" class="btn">
+                    На первую неделю
+                </button>
+                <button type="button" name="type_of_schedule" value="week2" class="btn">
+                    На вторую неделю
+                </button>
             </div>
         </form>
 
@@ -155,26 +160,26 @@
         <script>
             function setAction(typeValue, event) {
                 event.preventDefault(); // останавливаем отправку
-                
+
                 const form = document.getElementById('scheduleSelectForm');
                 const group = form.dataset.group || '{{group}}'; // из data-group или шаблона
                 form.action = `/schedule/${group}/${typeValue}`;
-                
+
                 // устанавливаем value для POST-данных
                 const input = document.createElement('input');
                 input.type = 'hidden';
                 input.name = 'type_of_schedule';
                 input.value = typeValue;
                 form.appendChild(input);
-                
+
                 form.submit(); // отправляем вручную
             }
 
             // привязываем обработчики динамически
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 const buttons = document.querySelectorAll('#scheduleSelectForm .schedule-buttons button');
                 buttons.forEach(button => {
-                    button.addEventListener('click', function(e) {
+                    button.addEventListener('click', function (e) {
                         setAction(this.value, e);
                     });
                 });
@@ -182,4 +187,5 @@
         </script>
     </div>
 </body>
+
 </html>

@@ -43,8 +43,8 @@ def schedule(group, type_of_schedule):
     
     # type_of_schedule = request.form.to_dict().get("type_of_schedule")  #today(ключ=today), tomorrow(ключ=tomorrow), week1(ключ = first_week), week2(ключ = second_week)
     
-    schedule = get_schedule(group)
-    if schedule == None:
+    schedule = get_schedule(group)  # TO_DO
+    if schedule == None:  # тут НЕТ смысла проверять, так как проверка идет ранее в getting_type_of_schedule 
         return render_template('httperror.html', error="Упс...", description="К сожалению, введенные данные содержат ошибки."), 404
     res = ""
     if type_of_schedule == 'today':

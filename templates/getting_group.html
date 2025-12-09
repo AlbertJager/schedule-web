@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f0f9f0 0%, #e6f4e6 50%, #f8faf8 100%);
@@ -23,7 +24,7 @@
             color: #1a3c1a;
             padding: 20px;
         }
-        
+
         .container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
@@ -34,26 +35,26 @@
             box-shadow: 0 10px 30px rgba(0, 150, 0, 0.1);
             border: 1px solid rgba(0, 200, 0, 0.2);
         }
-        
+
         .logo {
             font-size: 2.5em;
             font-weight: bold;
             margin-bottom: 10px;
             color: #2d5a2d;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
         }
-        
+
         .subtitle {
             font-size: 1.3em;
             margin-bottom: 30px;
             color: #1a3c1a;
             font-weight: 500;
         }
-        
+
         .form-group {
             margin-bottom: 25px;
         }
-        
+
         .form-label {
             display: block;
             font-size: 1.1em;
@@ -61,13 +62,13 @@
             color: #2d5a2d;
             font-weight: 500;
         }
-        
+
         .input-group {
             position: relative;
             display: flex;
             align-items: center;
         }
-        
+
         input[type="text"] {
             flex: 1;
             padding: 15px 20px;
@@ -78,20 +79,20 @@
             transition: all 0.3s ease;
             color: #1a3c1a;
         }
-        
+
         input[type="text"]:focus {
             outline: none;
             border-color: #4CAF50;
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
             background: white;
         }
-        
+
         .input-icon {
             position: absolute;
             right: 15px;
             color: #4a7c4a;
         }
-        
+
         .btn {
             display: block;
             width: 100%;
@@ -108,20 +109,20 @@
             cursor: pointer;
             margin-bottom: 25px;
         }
-        
+
         .btn:hover {
             background: linear-gradient(135deg, #45a049, #3d8b40);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
-        
+
         .example {
             font-size: 0.9em;
             color: #4a7c4a;
             margin-top: 5px;
             font-style: italic;
         }
-        
+
         .back-link {
             margin-top: 25px;
             padding-top: 20px;
@@ -129,38 +130,34 @@
             text-decoration: none;
             font-weight: 500;
         }
-        
+
         .back-link:hover {
             text-decoration: underline;
         }
-        
+
         @media (max-width: 480px) {
             .container {
                 padding: 30px 20px;
                 margin: 10px;
             }
+
             .logo {
                 font-size: 2em;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="logo">Расписание занятий</div>
-        
+
         <!-- ✅ ИЗМЕНЕНИЕ: Добавлен action="/getschedule" method="POST" -->
         <form id="scheduleForm" action="{{url_for('getting_type_of_schedule')}}" method="POST">
             <div class="form-group">
                 <label for="group" class="form-label">Введите группу</label>
                 <div class="input-group">
-                    <input 
-                        type="text" 
-                        id="group" 
-                        name="group"  
-                        placeholder="ИТ2304"
-                        required
-                    >
+                    <input type="text" id="group" name="group" placeholder="ИТ2304" required>
                     <span class="input-icon">🎓</span>
                 </div>
                 <div class="example">Например: ИТ2304, ЭК2301, АГ2305</div>
@@ -170,10 +167,11 @@
             {% endif %}
             <button type="submit" class="btn">Показать расписание</button>
         </form>
-        
+
         <a href="/" class="back-link">← На главную</a>
     </div>
 
     <!-- ✅ JavaScript удален, форма теперь работает стандартно -->
 </body>
+
 </html>

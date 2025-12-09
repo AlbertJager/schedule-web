@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f0f9f0 0%, #e6f4e6 50%, #f8faf8 100%);
@@ -22,13 +23,13 @@
             color: #1a3c1a;
             padding: 20px;
         }
-        
+
         .header {
             position: absolute;
             top: 20px;
             right: 20px;
         }
-        
+
         .container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
@@ -40,28 +41,28 @@
             border: 1px solid rgba(0, 200, 0, 0.2);
             position: relative;
         }
-        
+
         .logo {
             font-size: 2.5em;
             font-weight: bold;
             margin-bottom: 10px;
             color: #2d5a2d;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
         }
-        
+
         .subtitle {
             font-size: 1.3em;
             margin-bottom: 30px;
             color: #1a3c1a;
             font-weight: 500;
         }
-        
+
         .links {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
+
         .btn {
             display: block;
             padding: 15px 30px;
@@ -76,18 +77,18 @@
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
             cursor: pointer;
         }
-        
+
         .btn:hover {
             background: linear-gradient(135deg, #45a049, #3d8b40);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
-        
+
         .login-btn {
             padding: 12px 25px;
             font-size: 1em;
         }
-        
+
         .modal {
             display: none;
             position: fixed;
@@ -99,7 +100,7 @@
             z-index: 1000;
             backdrop-filter: blur(5px);
         }
-        
+
         .modal-content {
             background: rgba(255, 255, 255, 0.95);
             margin: 10% auto;
@@ -113,12 +114,19 @@
             position: relative;
             animation: slideIn 0.3s ease;
         }
-        
+
         @keyframes slideIn {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        
+
         .close {
             position: absolute;
             right: 20px;
@@ -128,24 +136,24 @@
             cursor: pointer;
             color: #4a7c4a;
         }
-        
+
         .close:hover {
             color: #2d5a2d;
         }
-        
+
         .tab-content {
             display: none;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
             text-align: left;
         }
-        
+
         .form-group label {
             display: block;
             margin-top: 15px;
@@ -153,7 +161,7 @@
             color: #2d5a2d;
             font-weight: 500;
         }
-        
+
         .form-group input {
             width: 100%;
             padding: 12px 15px;
@@ -163,19 +171,19 @@
             transition: border-color 0.3s ease;
             background: rgba(255, 255, 255, 0.8);
         }
-        
+
         .form-group input:focus {
             outline: none;
             border-color: #4CAF50;
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
-        
+
         .register-link {
             margin-top: 15px;
             font-size: 0.95em;
             color: #4a7c4a;
         }
-        
+
         .register-btn {
             background: none;
             border: none;
@@ -186,39 +194,45 @@
             text-decoration: underline;
             padding: 0;
         }
-        
+
         .register-btn:hover {
             color: #45a049;
         }
-        
+
         .university {
             margin-top: 30px;
             font-size: 0.95em;
             color: #4a7c4a;
             font-style: italic;
         }
-        
+
         @media (max-width: 480px) {
             .container {
                 padding: 30px 20px;
                 margin: 10px;
             }
+
             .logo {
                 font-size: 2em;
             }
+
             .header {
                 top: 15px;
                 right: 15px;
             }
         }
-        
+
         .subbtn {
             display: flex;
             justify-content: center;
         }
 
-        .login_error{
-            color: red; margin: 10px 0; padding: 10px; background: #fee; border-radius: 5px;
+        .login_error {
+            color: red;
+            margin: 10px 0;
+            padding: 10px;
+            background: #fee;
+            border-radius: 5px;
         }
 
         .toast {
@@ -260,6 +274,7 @@
             font-size: 1.1em;
             padding: 8px 16px;
         }
+
         .user-icon {
             width: 20px;
             height: 20px;
@@ -268,14 +283,16 @@
         }
     </style>
 </head>
+
 <body>
-    
+
     <div class="header">
-    {% if session.get("authorized", False) %}
+        {% if session.get("authorized", False) %}
         <div class="user-panel">
             <span class="username">
                 <svg class="user-icon" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    <path fill="currentColor"
+                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                 </svg>
                 {{ session.get("username", "Пользователь") }}
             </span>
@@ -283,113 +300,119 @@
                 <button type="submit" class="btn login-btn">Выйти</button>
             </form>
         </div>
-    {% else %}
+        {% else %}
         <button class="btn login-btn" onclick="openModal()">Авторизоваться</button>
-    {% endif %}
-</div>
-    
+        {% endif %}
+    </div>
+
     <div class="container">
         <div class="logo">От Альберта Саркисяна</div>
         <div class="subtitle">Сайт для любимого КубГАУ💚</div>
-        
+
         <div class="links">
             <a href="{{url_for('getting_group')}}" class="btn">Открыть расписание</a>
             <a href="{{url_for('getting_city')}}" class="btn">Открыть погоду</a>
         </div>
-        
+
         <div class="university">
             Кубанский государственный аграрный университет
         </div>
-       
+
     </div>
-    
-        <!-- Модальное окно -->
-        <div id="loginModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2>Добро пожаловать!</h2>
-                
-                <!-- Форма входа (активная по умолчанию) -->
-                <div id="login-tab" class="tab-content active">
-                    <form id="login-form" action="{{url_for('sign_in')}}" method="post">
-                        <div class="form-group">
-                            <label>Логин или email</label>
-                            <input id="login-input" name="login" type="text" placeholder="Введите логин или email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Пароль</label>
-                            <input name="password" type="password" placeholder="Введите пароль" autocomplete="current-password" required>
-                        </div>
-                        
-                        <div id="login-error" style="display: none; color: red; margin: 10px 0; padding: 10px; background: #fee; border-radius: 5px; border: 1px solid red;"></div>
-                        
-                        <div class="subbtn">
-                            <button type="submit" class="btn">Войти</button>
-                        </div>
-                        <div class="register-link">
-                            Нет аккаунта? <button type="button" class="register-btn" onclick="switchTab('register')">Зарегистрироваться</button>
-                        </div>
-                    </form>
-                </div>
-                
-                <!-- Форма регистрации -->
-                <div id="register-tab" class="tab-content">
-                    <form action="{{url_for('sign_up')}}" method="post">  
-                        <div class="form-group">
-                            <label>Логин</label>
-                            <input name="login" type="text" placeholder="Придумайте логин" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input name="email" type="email" placeholder="example@mail.ru" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Пароль</label>
-                            <input name="password" type="password" placeholder="Придумайте пароль"autocomplete="new-password" required>
-                        </div>
-                        <div class="subbtn">
-                            <button type="submit" class="btn">Зарегистрироваться</button>
-                        </div>
-                        <div class="register-link">
-                            Уже есть аккаунт? <button type="button" class="register-btn" onclick="switchTab('login')">Войти</button>
-                        </div>
-                    </form>
-                </div>
+
+    <!-- Модальное окно -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Добро пожаловать!</h2>
+
+            <!-- Форма входа (активная по умолчанию) -->
+            <div id="login-tab" class="tab-content active">
+                <form id="login-form" action="{{url_for('sign_in')}}" method="post">
+                    <div class="form-group">
+                        <label>Логин или email</label>
+                        <input id="login-input" name="login" type="text" placeholder="Введите логин или email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input name="password" type="password" placeholder="Введите пароль"
+                            autocomplete="current-password" required>
+                    </div>
+
+                    <div id="login-error"
+                        style="display: none; color: red; margin: 10px 0; padding: 10px; background: #fee; border-radius: 5px; border: 1px solid red;">
+                    </div>
+
+                    <div class="subbtn">
+                        <button type="submit" class="btn">Войти</button>
+                    </div>
+                    <div class="register-link">
+                        Нет аккаунта? <button type="button" class="register-btn"
+                            onclick="switchTab('register')">Зарегистрироваться</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Форма регистрации -->
+            <div id="register-tab" class="tab-content">
+                <form action="{{url_for('sign_up')}}" method="post">
+                    <div class="form-group">
+                        <label>Логин</label>
+                        <input name="login" type="text" placeholder="Придумайте логин" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input name="email" type="email" placeholder="example@mail.ru" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Пароль</label>
+                        <input name="password" type="password" placeholder="Придумайте пароль"
+                            autocomplete="new-password" required>
+                    </div>
+                    <div class="subbtn">
+                        <button type="submit" class="btn">Зарегистрироваться</button>
+                    </div>
+                    <div class="register-link">
+                        Уже есть аккаунт? <button type="button" class="register-btn"
+                            onclick="switchTab('login')">Войти</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
     <div id="success-toast" class="toast success">
         Успешный вход!
     </div>
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                {% if category == 'logout' %}
-                    <div id="flash-logout-toast" class="toast" style="background: linear-gradient(135deg, #f44336, #d32f2f);">
-                        {{ message }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'logout' %}
+    <div id="flash-logout-toast" class="toast" style="background: linear-gradient(135deg, #f44336, #d32f2f);">
+        {{ message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
     {% endwith %}
-   <script>
-    // 1. Login обработчик (без изменений)
-    document.getElementById('login-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        const errorDiv = document.getElementById('login-error');
-        
-        try {
-            const response = await fetch('/sign_in', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                // ✅ ОБНОВИТЬ HEADER
-                document.querySelector('.header').innerHTML = `
+    <script>
+        // 1. Login обработчик (без изменений)
+        document.getElementById('login-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const errorDiv = document.getElementById('login-error');
+
+            try {
+                const response = await fetch('/sign_in', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // ✅ ОБНОВИТЬ HEADER
+                    document.querySelector('.header').innerHTML = `
                     <div class="user-panel">
                         <span class="username">
                             <svg class="user-icon" viewBox="0 0 24 24">
@@ -402,65 +425,66 @@
                         </form>
                     </div>
                 `;
-                // Показать toast
-                const toast = document.getElementById('success-toast');
-                toast.classList.add('show');
-                closeModal();
-                setTimeout(() => toast.classList.remove('show'), 5000);
-            } else {
-                errorDiv.textContent = result.error;
+                    // Показать toast
+                    const toast = document.getElementById('success-toast');
+                    toast.classList.add('show');
+                    closeModal();
+                    setTimeout(() => toast.classList.remove('show'), 5000);
+                } else {
+                    errorDiv.textContent = result.error;
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Ошибка сервера';
                 errorDiv.style.display = 'block';
             }
-        } catch (error) {
-            errorDiv.textContent = 'Ошибка сервера';
-            errorDiv.style.display = 'block';
-        }
-    });
+        });
 
-    // ✅ 2. ТОСТ ПРИ КЛИКЕ "Выйти" (ДО редиректа)
-    document.addEventListener('click', function(e) {
-        if (e.target.matches('.logout-form button[type="submit"]')) {
-            const logoutToast = document.getElementById('logout-toast');
-            if (logoutToast) {
-                logoutToast.classList.add('show');
-                setTimeout(() => logoutToast.classList.remove('show'), 2500);
+        // ✅ 2. ТОСТ ПРИ КЛИКЕ "Выйти" (ДО редиректа)
+        document.addEventListener('click', function (e) {
+            if (e.target.matches('.logout-form button[type="submit"]')) {
+                const logoutToast = document.getElementById('logout-toast');
+                if (logoutToast) {
+                    logoutToast.classList.add('show');
+                    setTimeout(() => logoutToast.classList.remove('show'), 2500);
+                }
+            }
+        });
+
+        // ✅ 3. FLASH ТОСТ ПРИ ЗАГРУЗКЕ (ПОСЛЕ редиректа)
+        document.addEventListener('DOMContentLoaded', function () {
+            const flashToast = document.getElementById('flash-logout-toast');
+            if (flashToast) {
+                flashToast.classList.add('show');
+                setTimeout(() => flashToast.classList.remove('show'), 3000);
+            }
+        });
+
+        function openModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        // Закрытие модалки по клику вне неё
+        window.onclick = function (event) {
+            const modal = document.getElementById('loginModal');
+            if (event.target === modal) {
+                closeModal();
             }
         }
-    });
-
-    // ✅ 3. FLASH ТОСТ ПРИ ЗАГРУЗКЕ (ПОСЛЕ редиректа)
-    document.addEventListener('DOMContentLoaded', function() {
-        const flashToast = document.getElementById('flash-logout-toast');
-        if (flashToast) {
-            flashToast.classList.add('show');
-            setTimeout(() => flashToast.classList.remove('show'), 3000);
-        }
-    });
-
-    function openModal() {
-        document.getElementById('loginModal').style.display = 'block';
-    }
-    
-    function closeModal() {
-        document.getElementById('loginModal').style.display = 'none';
-    }
-    
-    function switchTab(tabName) {
-        document.querySelectorAll('.tab-content').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        document.getElementById(tabName + '-tab').classList.add('active');
-    }
-    
-    // Закрытие модалки по клику вне неё
-    window.onclick = function(event) {
-        const modal = document.getElementById('loginModal');
-        if (event.target === modal) {
-            closeModal();
-        }
-    }
-</script>
+    </script>
 
 
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f0f9f0 0%, #e6f4e6 50%, #f8faf8 100%);
@@ -22,7 +23,7 @@
             color: #1a3c1a;
             padding: 20px;
         }
-        
+
         .container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
@@ -33,31 +34,31 @@
             box-shadow: 0 10px 30px rgba(0, 150, 0, 0.1);
             border: 1px solid rgba(0, 200, 0, 0.2);
         }
-        
+
         .logo {
             font-size: 2.5em;
             font-weight: bold;
             margin-bottom: 20px;
             color: #2d5a2d;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
         }
-        
+
         .error-code {
             font-size: 6em;
             font-weight: bold;
             color: #4CAF50;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
             font-family: 'Courier New', monospace;
         }
-        
+
         .error-message {
             font-size: 1.4em;
             margin-bottom: 30px;
             color: #2d5a2d;
             line-height: 1.5;
         }
-        
+
         .back-link {
             display: inline-block;
             margin-top: 25px;
@@ -70,30 +71,34 @@
             border: 2px solid rgba(76, 175, 80, 0.3);
             transition: all 0.3s ease;
         }
-        
+
         .back-link:hover {
             background: rgba(76, 175, 80, 0.2);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
         }
-        
+
         @media (max-width: 480px) {
             .container {
                 padding: 40px 20px;
                 margin: 10px;
             }
+
             .logo {
                 font-size: 2em;
             }
+
             .error-code {
                 font-size: 4em;
             }
+
             .error-message {
                 font-size: 1.2em;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="error-code">{{error}}</div>
@@ -103,4 +108,5 @@
         <a href="{{url_for('index')}}" class="back-link">← Вернуться на главную</a>
     </div>
 </body>
+
 </html>
